@@ -14,8 +14,6 @@ const Table = ({ data }: { data: MockSelectRow[] }) => {
     setSortedData(data);
   }, [data]);
 
-  console.log("data", data);
-
   const handleSort = (key: keyof MockSelectRow) => {
     setSortKey(key);
     const multiplier = sortDirection === "asc" ? 1 : -1;

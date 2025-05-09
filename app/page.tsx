@@ -5,6 +5,7 @@ import Table from "./ui/table/page";
 import { MultiSelect } from "./ui/multi-select/page";
 import { SelectData } from "./ui/multi-select/page.constants";
 import Image from "next/image";
+import { getOrderDayLabels, orderDayRanges } from "@/lib/get-order-days";
 
 export default async function Home(props: {
   searchParams?: Promise<Partial<MockSelectRow>>;
@@ -22,10 +23,20 @@ export default async function Home(props: {
 
   const filteredData = CleanedMockData.filter((row) => {
     return Object.entries(normalizedParams).every(([key, values]) => {
-      const rowValue = row[key as keyof MockSelectRow];
-      return (
-        rowValue != null && values.includes(String(rowValue).toLowerCase())
-      );
+      const searchValues = values.map((v) => v.toLowerCase());
+      const rawValue = row[key as keyof MockSelectRow];
+
+      if (rawValue == null) return false;
+
+      let rowValues: string[] = [];
+
+      if (key === "daysSinceOrder") {
+        rowValues = getOrderDayLabels(rawValue as number);
+      } else {
+        rowValues = [String(rawValue).toLowerCase()];
+      }
+
+      return rowValues.some((val) => searchValues.includes(val));
     });
   });
 
@@ -54,7 +65,11 @@ export default async function Home(props: {
               key={select.name}
               name={select.name}
               placeholder={select.placeholder}
-              options={select.options}
+              options={
+                select.name === "daysSinceOrder"
+                  ? orderDayRanges
+                  : select.options
+              }
             />
           ))}
         </section>
