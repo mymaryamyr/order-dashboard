@@ -1,30 +1,4 @@
-import { MockRow, SelectType } from "./mock.types";
-
-export const MockKeys: (keyof MockRow)[] = [
-  "oid",
-  "statusLeft",
-  "statusRight",
-  "type",
-  "lock",
-  "customer",
-  "daysSinceOrder",
-  "model",
-  "designer",
-];
-
-export enum MockKeysEnum {
-  statusLeft = "status Left",
-  statusRight = "status Right",
-  type = "Type",
-  lock = "Lock",
-  customer = "Customer",
-  daysSinceOrder = "Days Since Order",
-  model = "Model",
-  designer = "Designer",
-  oid = "OID",
-}
-
-export const MockData: MockRow[] = [
+export const MockData = [
   {
     oid: 12845,
     statusLeft: "Ready for Packaging",
@@ -346,11 +320,23 @@ export const MockData: MockRow[] = [
   },
 ];
 
-export const SelectData: SelectType[] = MockKeys.map((key) => ({
-  name: key,
-  placeholder: `Filter by ${MockKeysEnum[key]}`,
-  options: [...new Set(MockData.map((row) => row[key]))].map((d) => ({
-    value: d.toString(),
-    label: d.toString(),
-  })),
+const MockStatusRank: Record<string, number> = {
+  "Open Order": 1,
+  Printing: 2,
+  Delivered: 3,
+  QC: 4,
+  Drying: 5,
+  "Ready for Packaging": 6,
+};
+
+function getStatusRank(status: string): number {
+  return MockStatusRank[status];
+}
+
+export const CleanedMockData = MockData.map((row) => ({
+  ...row,
+  status: Math.min(
+    getStatusRank(row.statusLeft),
+    getStatusRank(row.statusRight)
+  ),
 }));

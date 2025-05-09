@@ -1,11 +1,12 @@
 import { Suspense } from "react";
-import { MockData, SelectData } from "./server/mock";
-import { MockRow } from "./server/mock.types";
-import { MultiSelect } from "./ui/multi-select";
+import { CleanedMockData } from "./server/mock";
+import { MockSelectRow } from "./server/mock.types";
 import Table from "./ui/table/page";
+import { MultiSelect } from "./ui/multi-select/page";
+import { SelectData } from "./ui/multi-select/page.constants";
 
 export default async function Home(props: {
-  searchParams?: Promise<Partial<MockRow>>;
+  searchParams?: Promise<Partial<MockSelectRow>>;
 }) {
   const searchParams = await props.searchParams;
 
@@ -17,9 +18,9 @@ export default async function Home(props: {
     }
   }
 
-  const filteredData = MockData.filter((row) => {
+  const filteredData = CleanedMockData.filter((row) => {
     return Object.entries(normalizedParams).every(([key, searchValue]) => {
-      const rowValue = row[key as keyof MockRow];
+      const rowValue = row[key as keyof MockSelectRow];
       if (rowValue == null) return false;
       return String(rowValue).toLowerCase() === searchValue;
     });

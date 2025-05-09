@@ -1,11 +1,12 @@
 "use client";
-import { MockRow } from "@/app/server/mock.types";
+import { MockSelectRow } from "@/app/server/mock.types";
 import React, { useEffect, useState } from "react";
 import { Columns } from "./page.constants";
+import { getStatusText } from "@/app/utils/get-status-text";
 
-const Table = ({ data }: { data: MockRow[] }) => {
-  const [sortKey, setSortKey] = useState<keyof MockRow | "">("");
-  const [sortedData, setSortedData] = useState<MockRow[]>(data);
+const Table = ({ data }: { data: MockSelectRow[] }) => {
+  const [sortKey, setSortKey] = useState<keyof MockSelectRow | "">("");
+  const [sortedData, setSortedData] = useState<MockSelectRow[]>(data);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
   // when URL changes
@@ -13,10 +14,11 @@ const Table = ({ data }: { data: MockRow[] }) => {
     setSortedData(data);
   }, [data]);
 
-  const handleSort = (key: keyof MockRow) => {
+  console.log("data", data);
+
+  const handleSort = (key: keyof MockSelectRow) => {
     setSortKey(key);
     const multiplier = sortDirection === "asc" ? 1 : -1;
-    console.log("Sorting in descending order", sortDirection);
     if (multiplier === 1) {
       setSortDirection("desc");
     } else {
@@ -50,12 +52,37 @@ const Table = ({ data }: { data: MockRow[] }) => {
         </thead>
         <tbody>
           {sortedData.map((row, rowIdx) => (
-            <tr key={rowIdx} className="even:bg-gray-50">
-              {Columns.map((col) => (
-                <td key={col.accessor} className="px-4 py-2 text-gray-800">
-                  {row[col.accessor]}
-                </td>
-              ))}
+            <tr key={rowIdx} className="even:bg-gray-50 hover:bg-blue-200">
+              {Columns.map((col) => {
+                if (col.accessor === "status") {
+                  return (
+                    <td
+                      key={col.accessor}
+                      className="flex flx-col px-4 py-2 gap-2 text-gray-800"
+                    >
+                      <div className="basis-1/2">
+                        {getStatusText(row[col.accessor])}
+                      </div>
+                      <div className="flex flex-col basis-1/2 text-xs text-gray-500">
+                        <div className="flex justify-between">
+                          <span>{row["statusLeft"]}</span>
+                          <span>L</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>{row["statusRight"]}</span>
+                          <span>R</span>
+                        </div>
+                      </div>
+                    </td>
+                  );
+                } else {
+                  return (
+                    <td key={col.accessor} className="px-4 py-2 text-gray-800">
+                      {row[col.accessor]}
+                    </td>
+                  );
+                }
+              })}
             </tr>
           ))}
         </tbody>

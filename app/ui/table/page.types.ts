@@ -1,6 +1,6 @@
-import { MockRow } from "@/app/server/mock.types";
+import { MockSelectRow } from "@/app/server/mock.types";
 
 export type Column = {
   header: string;
-  accessor: keyof MockRow;
+  accessor: keyof MockSelectRow;
 };

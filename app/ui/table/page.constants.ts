@@ -1,8 +1,8 @@
 import { capitalize } from "@/app/utils/capitalize";
 import { Column } from "./page.types";
-import { MockKeys, MockKeysEnum } from "@/app/server/mock";
+import { MockKeysEnum, MockSelectKeys } from "@/app/server/mock.types";
 
-export const Columns: Column[] = MockKeys.map((key) => ({
+export const Columns: Column[] = MockSelectKeys.map((key) => ({
   header: capitalize(MockKeysEnum[key]),
   accessor: key,
 }));
