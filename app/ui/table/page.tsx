@@ -23,8 +23,8 @@ const Table = ({ data }: { data: MockRow[] }) => {
       setSortDirection("asc");
     }
     const finalSortedData = [...sortedData].sort((a, b) => {
-      if (a[key] < b[key]) return multiplier;
-      if (a[key] > b[key]) return -multiplier;
+      if (a[key] < b[key]) return -multiplier;
+      if (a[key] > b[key]) return multiplier;
       return 0;
     });
     setSortedData(finalSortedData);
