@@ -11,18 +11,21 @@ export default async function Home(props: {
   const searchParams = await props.searchParams;
 
   // Normalize search params: remove undefined + convert to lowercase strings
-  const normalizedParams: { [key: string]: string } = {};
+  const normalizedParams: Record<string, string[]> = {};
+
   for (const [key, value] of Object.entries(searchParams ?? {})) {
-    if (value != null) {
-      normalizedParams[key] = String(value).toLowerCase();
+    if (Array.isArray(value)) {
+      normalizedParams[key] = value.map((v) => v.toLowerCase());
+    } else if (value) {
+      normalizedParams[key] = [String(value).toLowerCase()];
     }
   }
 
   const filteredData = CleanedMockData.filter((row) => {
-    return Object.entries(normalizedParams).every(([key, searchValue]) => {
+    return Object.entries(normalizedParams).every(([key, values]) => {
       const rowValue = row[key as keyof MockSelectRow];
       if (rowValue == null) return false;
-      return String(rowValue).toLowerCase() === searchValue;
+      return values.includes(String(rowValue).toLowerCase());
     });
   });
 
