@@ -1,6 +1,6 @@
 import { CleanedMockData } from "@/app/server/mock";
 import { SelectType } from "./page.types";
-import { getStatusText } from "@/app/utils/get-status-text";
+import { getStatusText } from "@/lib/get-status-text";
 import { MockKeysEnum, MockSelectKeys } from "@/app/server/mock.types";
 
 export const SelectData: SelectType[] = MockSelectKeys.map((key) => ({

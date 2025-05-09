@@ -1,4 +1,4 @@
-import { capitalize } from "@/app/utils/capitalize";
+import { capitalize } from "@/lib/capitalize";
 import { Column } from "./page.types";
 import { MockKeysEnum, MockSelectKeys } from "@/app/server/mock.types";
 

@@ -2,7 +2,7 @@
 import { MockSelectRow } from "@/app/server/mock.types";
 import React, { useEffect, useState } from "react";
 import { Columns } from "./page.constants";
-import { getStatusText } from "@/app/utils/get-status-text";
+import { getStatusText } from "@/lib/get-status-text";
 
 const Table = ({ data }: { data: MockSelectRow[] }) => {
   const [sortKey, setSortKey] = useState<keyof MockSelectRow | "">("");

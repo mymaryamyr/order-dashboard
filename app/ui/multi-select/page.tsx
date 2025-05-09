@@ -11,14 +11,14 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/app/ui/sub-components/separator";
+import { Button } from "@/app/ui/sub-components/button";
+import { Badge } from "@/app/ui/sub-components/badge";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/app/ui/sub-components/popover";
 import {
   Command,
   CommandEmpty,
@@ -27,7 +27,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/command";
+} from "@/app/ui/sub-components/command";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const multiSelectVariants = cva(

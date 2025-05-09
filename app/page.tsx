@@ -30,9 +30,10 @@ export default async function Home(props: {
   });
 
   return (
-    <div className="min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="min-h-screen p-2 pb-20 gap-1 sm:p-8 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 sm:items-start">
-        <header className="flex flex-wrap items-center justify-between gap-4">
+        <header>Zellerfeld</header>
+        <div className="flex flex-wrap items-center justify-between gap-4">
           {SelectData.map((select) => (
             <MultiSelect
               key={select.name}
@@ -41,7 +42,8 @@ export default async function Home(props: {
               options={select.options}
             />
           ))}
-        </header>
+        </div>
+
         <Suspense fallback={<div>Loading...</div>}>
           <Table data={filteredData} />
         </Suspense>
