@@ -1,14 +1,9 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { SelectType } from "../server/mock.types";
 
-type SelectProps = {
-  name: string;
-  placeholder: string;
-  options: { value: string; label: string }[];
-};
-
-const Select = ({ name, placeholder, options }: SelectProps) => {
+const Select = ({ name, placeholder, options }: SelectType) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -26,7 +21,7 @@ const Select = ({ name, placeholder, options }: SelectProps) => {
   }
 
   return (
-    <div className="relative flex flex-1 flex-shrink-0 max-w-xs">
+    <div className="relative flex basis-64 grow max-w-xs">
       <label htmlFor={name} className="sr-only">
         {placeholder}
       </label>

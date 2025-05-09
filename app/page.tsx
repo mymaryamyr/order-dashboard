@@ -1,80 +1,43 @@
 import { Suspense } from "react";
 import Select from "./ui/select";
 import Table from "./table/page";
-
-type DataRow = {
-  name: string;
-  role: string;
-  email: string;
-  status: string;
-};
-
-const selectData = [
-  {
-    name: "role",
-    placeholder: "Filter by role",
-    options: [
-      { value: "admin", label: "Admin" },
-      { value: "user", label: "User" },
-      { value: "manager", label: "Manager" },
-    ],
-  },
-  {
-    name: "status",
-    placeholder: "Filter by status",
-    options: [
-      { value: "active", label: "Active" },
-      { value: "inactive", label: "Inactive" },
-    ],
-  },
-];
-
-const data: DataRow[] = [
-  {
-    name: "John Doe",
-    role: "Admin",
-    email: "something@gmail.com",
-    status: "active",
-  },
-  { name: "sefawf", role: "User", email: "User@gmail.com", status: "active" },
-  {
-    name: "Jofffsss",
-    role: "User",
-    email: "fsdfaF@gmail.com",
-    status: "blocked",
-  },
-];
+import { MockData, SelectData } from "./server/mock";
+import { MockRow } from "./server/mock.types";
 
 export default async function Home(props: {
-  searchParams?: Promise<{
-    role?: string;
-    status?: string;
-  }>;
+  searchParams?: Promise<Partial<MockRow>>;
 }) {
   const searchParams = await props.searchParams;
 
-  const roleParam = searchParams?.role?.toLowerCase();
-  const statusParam = searchParams?.status?.toLowerCase();
+  // Normalize search params: remove undefined + convert to lowercase strings
+  const normalizedParams: { [key: string]: string } = {};
+  for (const [key, value] of Object.entries(searchParams ?? {})) {
+    if (value != null) {
+      normalizedParams[key] = String(value).toLowerCase();
+    }
+  }
 
-  const filteredData = data.filter((row) => {
-    const matchRole = roleParam ? row.role.toLowerCase() === roleParam : true;
-    const matchStatus = statusParam
-      ? row.status?.toLowerCase() === statusParam
-      : true;
-    return matchRole && matchStatus;
+  const filteredData = MockData.filter((row) => {
+    return Object.entries(normalizedParams).every(([key, searchValue]) => {
+      const rowValue = row[key as keyof MockRow];
+      if (rowValue == null) return false;
+      return String(rowValue).toLowerCase() === searchValue;
+    });
   });
 
   return (
     <div className="min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 sm:items-start">
-        {selectData.map((select) => (
-          <Select
-            key={select.name}
-            name={select.name}
-            placeholder={select.placeholder}
-            options={select.options}
-          />
-        ))}
+        <header className="flex flex-wrap gap-3 items-center justify-start">
+          {SelectData.map((select) => (
+            <Select
+              key={select.name}
+              name={select.name}
+              placeholder={select.placeholder}
+              options={select.options}
+            />
+          ))}
+        </header>
         <Suspense fallback={<div>Loading...</div>}>
           <Table data={filteredData} />
         </Suspense>
