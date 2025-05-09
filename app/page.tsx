@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import Select from "./ui/select";
-import Table from "./table/page";
 import { MockData, SelectData } from "./server/mock";
 import { MockRow } from "./server/mock.types";
+import Table from "./ui/table/page";
 
 export default async function Home(props: {
   searchParams?: Promise<Partial<MockRow>>;

@@ -1,4 +1,4 @@
-import { MockRow } from "../server/mock.types";
+import { MockRow } from "@/app/server/mock.types";
 
 export type Column = {
   header: string;

@@ -12,6 +12,18 @@ export const MockKeys: (keyof MockRow)[] = [
   "designer",
 ];
 
+export enum MockKeysEnum {
+  statusLeft = "status Left",
+  statusRight = "status Right",
+  type = "Type",
+  lock = "Lock",
+  customer = "Customer",
+  daysSinceOrder = "Days Since Order",
+  model = "Model",
+  designer = "Designer",
+  oid = "OID",
+}
+
 export const MockData: MockRow[] = [
   {
     oid: 12845,
@@ -336,7 +348,7 @@ export const MockData: MockRow[] = [
 
 export const SelectData: SelectType[] = MockKeys.map((key) => ({
   name: key,
-  placeholder: `Filter by ${key}`,
+  placeholder: `Filter by ${MockKeysEnum[key]}`,
   options: [...new Set(MockData.map((row) => row[key]))].map((d) => ({
     value: d.toString(),
     label: d.toString(),

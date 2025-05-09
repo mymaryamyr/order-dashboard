@@ -26,6 +26,7 @@ const Select = ({ name, placeholder, options }: SelectType) => {
         {placeholder}
       </label>
       <select
+        multiple
         id={name}
         value={currentValue}
         onChange={(e) => handleChange(e.target.value)}
