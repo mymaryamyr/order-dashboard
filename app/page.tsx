@@ -11,9 +11,7 @@ export default async function Home(props: {
 }) {
   const searchParams = await props.searchParams;
 
-  // Normalize search params: remove undefined + convert to lowercase strings
   const normalizedParams: Record<string, string[]> = {};
-
   for (const [key, value] of Object.entries(searchParams ?? {})) {
     if (Array.isArray(value)) {
       normalizedParams[key] = value.map((v) => v.toLowerCase());
@@ -25,24 +23,32 @@ export default async function Home(props: {
   const filteredData = CleanedMockData.filter((row) => {
     return Object.entries(normalizedParams).every(([key, values]) => {
       const rowValue = row[key as keyof MockSelectRow];
-      if (rowValue == null) return false;
-      return values.includes(String(rowValue).toLowerCase());
+      return (
+        rowValue != null && values.includes(String(rowValue).toLowerCase())
+      );
     });
   });
 
   return (
-    <div className="min-h-screen p-2 pb-20 gap-1 sm:p-8 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 sm:items-start">
-        <header>
-          <a
-            href="https://www.zellerfeld.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image src="/logo.svg" alt="Zellerfeld" width={20} height={20} />
-          </a>
-        </header>
-        <div className="flex flex-wrap items-center justify-between gap-4">
+    <div className="min-h-screen bg-white text-black dark:bg-zinc-900 dark:text-white font-[family-name:var(--font-geist-sans)]">
+      <header className="w-full h-20 flex items-center px-6 bg-gray-100 dark:bg-zinc-800 border-b">
+        <a
+          className="flex items-center gap-4"
+          href="https://www.zellerfeld.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image src="/logo.svg" alt="Zellerfeld" width={35} height={35} />
+          <Image
+            src="/text-logo.svg"
+            alt="Zellerfeld"
+            width={120}
+            height={20}
+          />
+        </a>
+      </header>
+      <main className="px-4 sm:px-8 py-6 flex flex-col gap-6">
+        <section className="flex flex-wrap gap-4 items-start p-4 rounded-md border border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 shadow-sm">
           {SelectData.map((select) => (
             <MultiSelect
               key={select.name}
@@ -51,13 +57,14 @@ export default async function Home(props: {
               options={select.options}
             />
           ))}
-        </div>
+        </section>
 
-        <Suspense fallback={<div>Loading...</div>}>
-          <Table data={filteredData} />
-        </Suspense>
+        <section>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Table data={filteredData} />
+          </Suspense>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center"></footer>
     </div>
   );
 }
