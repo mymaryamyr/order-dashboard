@@ -4,6 +4,7 @@ import { MockSelectRow } from "./server/mock.types";
 import Table from "./ui/table/page";
 import { MultiSelect } from "./ui/multi-select/page";
 import { SelectData } from "./ui/multi-select/page.constants";
+import Image from "next/image";
 
 export default async function Home(props: {
   searchParams?: Promise<Partial<MockSelectRow>>;
@@ -32,7 +33,15 @@ export default async function Home(props: {
   return (
     <div className="min-h-screen p-2 pb-20 gap-1 sm:p-8 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 sm:items-start">
-        <header>Zellerfeld</header>
+        <header>
+          <a
+            href="https://www.zellerfeld.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image src="/logo.svg" alt="Zellerfeld" width={20} height={20} />
+          </a>
+        </header>
         <div className="flex flex-wrap items-center justify-between gap-4">
           {SelectData.map((select) => (
             <MultiSelect
