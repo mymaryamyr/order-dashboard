@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import Select from "./ui/select";
 import { MockData, SelectData } from "./server/mock";
 import { MockRow } from "./server/mock.types";
+import { MultiSelect } from "./ui/multi-select";
 import Table from "./ui/table/page";
 
 export default async function Home(props: {
@@ -28,9 +28,9 @@ export default async function Home(props: {
   return (
     <div className="min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 sm:items-start">
-        <header className="flex flex-wrap gap-3 items-center justify-start">
+        <header className="flex flex-wrap items-center justify-between gap-4">
           {SelectData.map((select) => (
-            <Select
+            <MultiSelect
               key={select.name}
               name={select.name}
               placeholder={select.placeholder}

@@ -1,12 +1,17 @@
 "use client";
 import { MockRow } from "@/app/server/mock.types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Columns } from "./page.constants";
 
 const Table = ({ data }: { data: MockRow[] }) => {
   const [sortKey, setSortKey] = useState<keyof MockRow | "">("");
   const [sortedData, setSortedData] = useState<MockRow[]>(data);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+
+  // when URL changes
+  useEffect(() => {
+    setSortedData(data);
+  }, [data]);
 
   const handleSort = (key: keyof MockRow) => {
     setSortKey(key);
