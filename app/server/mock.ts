@@ -335,6 +335,7 @@ function getStatusRank(status: string): number {
 
 export const CleanedMockData = MockData.map((row) => ({
   ...row,
+  lock: row.lock ? row.lock : "—",
   status: Math.min(
     getStatusRank(row.statusLeft),
     getStatusRank(row.statusRight)

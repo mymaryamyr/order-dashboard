@@ -2,7 +2,7 @@
 
 This is an interactive, filterable, and sortable dashboard built with [Next.js](https://nextjs.org). It's fast, clean, and easy to use.
 
-Check out the deployed version [here](#).
+Check out the deployed version [here](https://orders-dashboard-nine.vercel.app).
 
 ---
 
@@ -46,4 +46,4 @@ Then open your browser and go to [http://localhost:8080](http://localhost:8080) 
 
 ## Disclaimer
 
-- The multiselect component is from [shadcn/ui](https://ui.shadcn.com/components/multi-select), slightly customized for this project.
+- The multiselect component is from [shadcn/ui](https://shadcn-multi-select-component.vercel.app), slightly customized for this project.

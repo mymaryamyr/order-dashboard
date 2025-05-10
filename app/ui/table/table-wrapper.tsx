@@ -28,7 +28,6 @@ const TableWrapper = ({
     });
   });
 
-  console.log("filteredData", filteredData[0]);
   return <Table data={filteredData} />;
 };
 
