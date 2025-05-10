@@ -86,7 +86,7 @@ export const MultiSelect = React.forwardRef<
   ) => {
     const searchParams = useSearchParams();
     const [selectedValues, setSelectedValues] = React.useState<string[]>(
-      searchParams.getAll(name) // assuming `name` is "oid", "customer", etc.
+      searchParams.getAll(name) // name is "oid", "customer", etc.
     );
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
     const [isAnimating, setIsAnimating] = React.useState(false);

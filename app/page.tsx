@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { MockSelectRow } from "./server/mock.types";
+import { MockDataRow } from "./server/mock.types";
 import { MultiSelect } from "./ui/multi-select/page";
 import { SelectData } from "./ui/multi-select/page.constants";
 import { orderDayRanges } from "@/lib/get-order-days";
@@ -8,14 +8,16 @@ import { normalizeSearchParam } from "@/lib/normalize-search-param";
 import Header from "./ui/header/page";
 
 export default async function Home(props: {
-  searchParams?: Promise<Partial<MockSelectRow>>;
+  searchParams?: Promise<Partial<MockDataRow>>;
 }) {
+  // get and normalize searchParams to do filtering in TableWrapper
   const searchParams = await props.searchParams;
   const normalizedParams = normalizeSearchParam(searchParams);
 
   return (
     <div className="min-h-screen bg-white text-black dark:bg-zinc-900 dark:text-white font-[family-name:var(--font-geist-sans)]">
       <Header />
+
       <main className="px-4 sm:px-8 py-6 flex flex-col gap-6">
         <section className="flex flex-wrap gap-4 items-start p-4 rounded-md border border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 shadow-sm">
           {SelectData.map((select) => (

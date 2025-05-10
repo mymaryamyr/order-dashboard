@@ -1,20 +1,21 @@
 "use client";
-import { MockSelectRow } from "@/app/server/mock.types";
+import { MockDataRow } from "@/app/server/mock.types";
 import React, { useEffect, useState } from "react";
 import { Columns } from "./page.constants";
 import { getStatusText } from "@/lib/get-status-text";
 
-const Table = ({ data }: { data: MockSelectRow[] }) => {
-  const [sortKey, setSortKey] = useState<keyof MockSelectRow | "">("");
-  const [sortedData, setSortedData] = useState<MockSelectRow[]>(data);
+const Table = ({ data }: { data: MockDataRow[] }) => {
+  const [sortKey, setSortKey] = useState<keyof MockDataRow | "">("");
+  const [sortedData, setSortedData] = useState<MockDataRow[]>(data);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
-  // when URL changes
+  // when URL changes, reload data
   useEffect(() => {
     setSortedData(data);
   }, [data]);
 
-  const handleSort = (key: keyof MockSelectRow) => {
+  // sorting, despite filter, happens in the client side
+  const handleSort = (key: keyof MockDataRow) => {
     setSortKey(key);
     const multiplier = sortDirection === "asc" ? 1 : -1;
     if (multiplier === 1) {

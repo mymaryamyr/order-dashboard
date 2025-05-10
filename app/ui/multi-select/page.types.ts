@@ -1,7 +1,7 @@
-import { MockSelectRow } from "@/app/server/mock.types";
+import { MockDataRow } from "@/app/server/mock.types";
 
 export type SelectType = {
-  name: keyof MockSelectRow;
+  name: keyof MockDataRow;
   placeholder: string;
   options: { value: string; label: string }[];
 };

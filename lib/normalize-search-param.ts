@@ -1,7 +1,7 @@
-import { MockSelectRow } from "@/app/server/mock.types";
+import { MockDataRow } from "@/app/server/mock.types";
 
 export function normalizeSearchParam(
-  searchParams: Partial<MockSelectRow> | undefined
+  searchParams: Partial<MockDataRow> | undefined
 ): Record<string, string[]> {
   const normalizedParams: Record<string, string[]> = {};
   if (!searchParams) return normalizedParams;

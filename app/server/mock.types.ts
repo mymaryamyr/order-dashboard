@@ -11,7 +11,7 @@ export enum MockKeysEnum {
   oid = "OID",
 }
 
-export const MockSelectKeys: (keyof MockSelectRow)[] = [
+export const MockKeys: (keyof MockDataRow)[] = [
   "oid",
   "status",
   "type",
@@ -22,7 +22,7 @@ export const MockSelectKeys: (keyof MockSelectRow)[] = [
   "designer",
 ];
 
-export type MockSelectRow = {
+export type MockDataRow = {
   oid: number;
   status: number;
   statusLeft: string;
