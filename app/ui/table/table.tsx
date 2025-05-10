@@ -1,12 +1,12 @@
 "use client";
-import { MockDataRow } from "@/app/server/mock.types";
+import { MockDataRow, MockDataType } from "@/app/server/mock.types";
 import React, { useEffect, useState } from "react";
 import { Columns } from "./page.constants";
 import { getStatusText } from "@/lib/get-status-text";
 
-const Table = ({ data }: { data: MockDataRow[] }) => {
+const Table = ({ data }: { data: MockDataType }) => {
   const [sortKey, setSortKey] = useState<keyof MockDataRow | "">("");
-  const [sortedData, setSortedData] = useState<MockDataRow[]>(data);
+  const [sortedData, setSortedData] = useState<MockDataType>(data);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
   // when URL changes, reload data

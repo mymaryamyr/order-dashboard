@@ -44,6 +44,6 @@ Then open your browser and go to [http://localhost:8080](http://localhost:8080) 
 
 ---
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 - The multiselect component is from [shadcn/ui](https://ui.shadcn.com/components/multi-select), slightly customized for this project.

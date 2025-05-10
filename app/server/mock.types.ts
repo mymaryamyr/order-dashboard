@@ -34,3 +34,5 @@ export type MockDataRow = {
   model: string;
   designer: string;
 };
+
+export type MockDataType = MockDataRow[];

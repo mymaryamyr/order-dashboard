@@ -1,7 +1,7 @@
 import { CleanedMockData } from "@/app/server/mock";
-import Table from "./page";
 import { getOrderDayLabels } from "@/lib/get-order-days";
-import { MockDataRow } from "@/app/server/mock.types";
+import { MockDataRow, MockDataType } from "@/app/server/mock.types";
+import Table from "./table";
 
 const TableWrapper = ({
   normalizedParams,
@@ -9,7 +9,7 @@ const TableWrapper = ({
   normalizedParams: Record<string, string[]>;
 }) => {
   // filtering data on the server in order to have a faster UX
-  const filteredData = CleanedMockData.filter((row) => {
+  const filteredData: MockDataType = CleanedMockData.filter((row) => {
     return Object.entries(normalizedParams).every(([key, values]) => {
       const searchValues = values.map((v) => v.toLowerCase());
       const rawValue = row[key as keyof MockDataRow];
@@ -28,6 +28,7 @@ const TableWrapper = ({
     });
   });
 
+  console.log("filteredData", filteredData[0]);
   return <Table data={filteredData} />;
 };
 
